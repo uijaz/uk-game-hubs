@@ -34,7 +34,18 @@ Read [CONTRIBUTING.md](CONTRIBUTING.md) to add or update a hub.
 
 ## License
 
-MIT – use this data however you like.
+MIT License – see the [LICENSE](LICENSE) file for details.
+
+**You are free to:**
+- Use, copy, modify, and distribute this data
+- Use it in commercial projects
+
+**You must:**
+- Include the original copyright notice and license in any copies or substantial portions of the data
+- Give credit to this repository: [uk-game-hubs](https://github.com/uijaz/uk-game-hubs)
+
+**Example credit:**
+> Data from [UK Game Hubs](https://github.com/uijaz/uk-game-hubs) (MIT License)
 
 ---
 
