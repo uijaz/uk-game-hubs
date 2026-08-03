@@ -3,114 +3,229 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>UK Game Dev Hubs</title>
+  
+  <!-- SEO Meta Tags -->
+  <title>UK Game Hubs - Community Directory</title>
+  <meta name="description" content="A community-driven directory of game development hubs across the UK. Find and contribute to local game dev communities.">
+  <link rel="canonical" href="https://uijaz.github.io/uk-game-hubs/">
+  
+  <!-- Open Graph / Social Media -->
+  <meta property="og:title" content="UK Game Hubs">
+  <meta property="og:description" content="Find and contribute to game dev hubs across the UK.">
+  <meta property="og:url" content="https://uijaz.github.io/uk-game-hubs/">
+  <meta property="og:type" content="website">
+  
   <style>
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 900px; margin: 0 auto; padding: 20px; background: #f8f9fa; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 1200px; margin: 0 auto; padding: 20px; background: #f8f9fa; }
     header { background: #1a1a2e; color: white; padding: 30px; border-radius: 12px; margin-bottom: 20px; }
     header h1 { margin: 0; font-size: 2rem; }
     header p { opacity: 0.8; margin: 5px 0 0 0; }
     .stats { font-size: 0.9rem; opacity: 0.9; margin-top: 10px; }
     .stats a { color: white; }
     input { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ddd; font-size: 1rem; margin-bottom: 20px; box-sizing: border-box; }
-    .hub { background: white; padding: 15px 20px; margin-bottom: 10px; border-radius: 8px; border-left: 4px solid #e94560; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-    .hub h2 { margin: 0 0 5px 0; font-size: 1.2rem; }
-    .hub .region { color: #666; font-size: 0.85rem; }
-    .hub .type { background: #e94560; color: white; padding: 2px 10px; border-radius: 12px; font-size: 0.7rem; display: inline-block; font-weight: bold; }
-    .hub .description { margin: 8px 0; color: #444; font-size: 0.9rem; }
+    .region-section { background: white; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); overflow: hidden; }
+    .region-header { background: #1a1a2e; color: white; padding: 12px 20px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+    .region-header:hover { opacity: 0.9; }
+    .region-header h2 { font-size: 1.2rem; font-weight: 600; }
+    .region-header .toggle { font-size: 1.2rem; transition: transform 0.2s; }
+    .region-header .toggle.open { transform: rotate(180deg); }
+    .region-content { padding: 15px; display: block; }
+    .region-content.hidden { display: none; }
+    .city-section { margin-bottom: 15px; border-left: 3px solid #e94560; padding-left: 15px; }
+    .city-section:last-child { margin-bottom: 0; }
+    .city-name { font-size: 1.1rem; font-weight: 600; color: #1a1a2e; margin-bottom: 8px; }
+    .hub-card { background: #f8f9fa; padding: 12px 15px; margin-bottom: 8px; border-radius: 6px; }
+    .hub-card:last-child { margin-bottom: 0; }
+    .hub-card h3 { font-size: 1rem; margin: 0 0 4px 0; color: #1a1a2e; }
+    .hub-card .description { font-size: 0.9rem; color: #444; margin-bottom: 6px; }
     .tag { background: #eef2f7; padding: 2px 10px; border-radius: 12px; font-size: 0.75rem; margin: 2px 4px 2px 0; display: inline-block; }
     .tag.studio { background: #dbeafe; color: #1e40af; }
     .tag.event { background: #fce7f3; color: #9d174d; }
-    .links { margin-top: 8px; }
-    .links a { color: #1a1a2e; text-decoration: none; font-size: 0.85rem; margin-right: 12px; }
+    .links { margin-top: 6px; }
+    .links a { color: #1a1a2e; text-decoration: none; font-size: 0.8rem; margin-right: 10px; display: inline-block; }
     .links a:hover { text-decoration: underline; }
     .empty { text-align: center; color: #666; padding: 40px; }
     footer { text-align: center; margin-top: 30px; color: #888; font-size: 0.85rem; }
     footer a { color: #1a1a2e; }
     .github-link { color: white; text-decoration: underline; }
+    .coordinates-badge { font-size: 0.7rem; color: #888; margin-left: 8px; }
   </style>
 </head>
 <body>
 
   <header>
-    <h1>🇬🇧 UK Game Dev Hubs</h1>
-    <p>A community-driven wiki mapping the UK's game development clusters</p>
+    <h1>🇬🇧 UK Game Hubs</h1>
+    <p>A community-driven directory of game development hubs across the UK</p>
     <div class="stats">
       <span id="count">Loading hubs...</span> · 
-      <a href="https://github.com/uijaz/uk-game-dev-hubs" class="github-link" target="_blank">⭐ Contribute on GitHub</a>
+      <a href="https://github.com/uijaz/uk-game-hubs" class="github-link" target="_blank">⭐ Contribute on GitHub</a>
     </div>
   </header>
 
-  <input type="text" id="search" placeholder="🔍 Search for a city, studio, or event..." onkeyup="filter()">
+  <input type="text" id="search" placeholder="🔍 Search for a hub, city, region, studio, or event..." onkeyup="filter()">
 
   <div id="list"></div>
 
   <footer>
-    Data from <a href="https://github.com/uijaz/uk-game-dev-hubs">uk-game-dev-hubs</a> · 
+    Data from <a href="https://github.com/uijaz/uk-game-hubs">uk-game-hubs</a> · 
     Last updated: <span id="lastUpdated">-</span>
   </footer>
 
   <script>
-    let hubsData = [];
+    let hubsData = { regions: [] };
+    let allHubs = [];
 
     fetch('data/hubs.json')
       .then(res => res.json())
       .then(data => {
-        hubsData = data.hubs;
-        document.getElementById('count').textContent = '📍 ' + hubsData.length + ' hubs mapped';
+        hubsData = data;
+        // Flatten all hubs for search
+        hubsData.regions.forEach(region => {
+          region.cities.forEach(city => {
+            city.hubs.forEach(hub => {
+              allHubs.push({
+                ...hub,
+                city: city.name,
+                region: region.name,
+                coordinates: city.coordinates
+              });
+            });
+          });
+        });
+        document.getElementById('count').textContent = '📍 ' + allHubs.length + ' hubs mapped across ' + hubsData.regions.length + ' regions';
         document.getElementById('lastUpdated').textContent = data.lastUpdated;
-        render(hubsData);
+        render(hubsData.regions);
       })
       .catch(() => {
         document.getElementById('list').innerHTML = '<div class="empty">⚠️ Error loading hubs. Try refreshing.</div>';
       });
 
-    function render(list) {
+    function render(regions) {
       const container = document.getElementById('list');
-      if (list.length === 0) {
-        container.innerHTML = '<div class="empty">No hubs match your search. <a href="https://github.com/uijaz/uk-game-dev-hubs" target="_blank">Add one on GitHub!</a></div>';
+      if (!regions || regions.length === 0) {
+        container.innerHTML = '<div class="empty">No hubs match your search. <a href="https://github.com/uijaz/uk-game-hubs/issues/new/choose" target="_blank">Add one on GitHub!</a></div>';
         return;
       }
-      container.innerHTML = list.map(function(h) {
-        var studiosHtml = '';
-        if (h.studios) {
-          studiosHtml = h.studios.map(function(s) { return '<span class="tag studio">🏢 ' + s + '</span>'; }).join('');
-        }
-        var eventsHtml = '';
-        if (h.events) {
-          eventsHtml = h.events.map(function(e) { return '<span class="tag event">📅 ' + e + '</span>'; }).join('');
-        }
-        var linksHtml = '';
-        if (h.links) {
-          if (h.links.website) linksHtml += '<a href="' + h.links.website + '" target="_blank">🌐 Website</a> ';
-          if (h.links.discord) linksHtml += '<a href="' + h.links.discord + '" target="_blank">💬 Discord</a> ';
-          if (h.links.twitter) linksHtml += '<a href="' + h.links.twitter + '" target="_blank">🐦 Twitter</a> ';
-        }
-        return '<div class="hub">' +
-          '<h2>' + h.name + '</h2>' +
-          '<span class="type">' + h.type + '</span>' +
-          '<span class="region">📍 ' + h.region + '</span>' +
-          '<div class="description">' + h.description + '</div>' +
-          '<div>' + studiosHtml + eventsHtml + '</div>' +
-          '<div class="links">' + linksHtml + '</div>' +
-        '</div>';
-      }).join('');
+
+      let html = '';
+      regions.forEach(region => {
+        const regionId = region.id || region.name.toLowerCase().replace(/\s+/g, '-');
+        html += `
+          <div class="region-section">
+            <div class="region-header" onclick="toggleRegion('${regionId}')">
+              <h2>📍 ${region.name}</h2>
+              <span class="toggle open" id="toggle-${regionId}">▼</span>
+            </div>
+            <div class="region-content" id="region-${regionId}">
+        `;
+        region.cities.forEach(city => {
+          html += `<div class="city-section">`;
+          html += `<div class="city-name">${city.name}`;
+          if (city.coordinates) {
+            html += ` <span class="coordinates-badge">📍 ${city.coordinates.lat}, ${city.coordinates.lng}</span>`;
+          }
+          html += `</div>`;
+          city.hubs.forEach(hub => {
+            html += `<div class="hub-card">`;
+            html += `<h3>${hub.name}</h3>`;
+            html += `<div class="description">${hub.description || ''}</div>`;
+            
+            // Studios
+            if (hub.studios && hub.studios.length > 0) {
+              html += `<div>`;
+              hub.studios.forEach(s => {
+                html += `<span class="tag studio">🏢 ${s}</span>`;
+              });
+              html += `</div>`;
+            }
+            
+            // Events
+            if (hub.events && hub.events.length > 0) {
+              html += `<div>`;
+              hub.events.forEach(e => {
+                html += `<span class="tag event">📅 ${e}</span>`;
+              });
+              html += `</div>`;
+            }
+            
+            // Links
+            if (hub.links) {
+              const linkMap = {
+                'website': '🌐 Website',
+                'discord': '💬 Discord',
+                'linkedin': '🔗 LinkedIn',
+                'youtube': '📺 YouTube',
+                'bluesky': '🦋 Bluesky',
+                'eventbrite': '🎟️ Eventbrite',
+                'meetup': '📅 Meetup',
+                'luma': '✨ Luma',
+                'facebook': '📘 Facebook',
+                'instagram': '📸 Instagram',
+                'tiktok': '🎵 TikTok',
+                'x': '🐦 X'
+              };
+              let linksHtml = '';
+              for (const key in linkMap) {
+                if (hub.links[key]) {
+                  linksHtml += `<a href="${hub.links[key]}" target="_blank">${linkMap[key]}</a>`;
+                }
+              }
+              if (linksHtml) {
+                html += `<div class="links">${linksHtml}</div>`;
+              }
+            }
+            
+            html += `</div>`;
+          });
+          html += `</div>`;
+        });
+        html += `</div></div>`;
+      });
+      
+      container.innerHTML = html;
+    }
+
+    function toggleRegion(regionId) {
+      const content = document.getElementById('region-' + regionId);
+      const toggle = document.getElementById('toggle-' + regionId);
+      if (content) {
+        content.classList.toggle('hidden');
+        if (toggle) toggle.classList.toggle('open');
+      }
     }
 
     function filter() {
-      var q = document.getElementById('search').value.toLowerCase();
-      var filtered = hubsData.filter(function(h) {
-        var match = h.name.toLowerCase().includes(q) ||
-          h.region.toLowerCase().includes(q) ||
-          h.description.toLowerCase().includes(q);
-        if (h.studios) {
-          match = match || h.studios.some(function(s) { return s.toLowerCase().includes(q); });
+      const q = document.getElementById('search').value.toLowerCase();
+      if (!q) {
+        render(hubsData.regions);
+        return;
+      }
+      
+      const filteredRegions = [];
+      hubsData.regions.forEach(region => {
+        const matchedCities = [];
+        region.cities.forEach(city => {
+          const matchedHubs = city.hubs.filter(hub => {
+            const searchText = (hub.name + ' ' + hub.description + ' ' + city.name + ' ' + region.name + ' ' + (hub.studios || []).join(' ') + ' ' + (hub.events || []).join(' ')).toLowerCase();
+            return searchText.includes(q);
+          });
+          if (matchedHubs.length > 0) {
+            matchedCities.push({
+              ...city,
+              hubs: matchedHubs
+            });
+          }
+        });
+        if (matchedCities.length > 0) {
+          filteredRegions.push({
+            ...region,
+            cities: matchedCities
+          });
         }
-        if (h.events) {
-          match = match || h.events.some(function(e) { return e.toLowerCase().includes(q); });
-        }
-        return match;
       });
-      render(filtered);
+      
+      render(filteredRegions);
     }
   </script>
 

@@ -1,10 +1,10 @@
-# 🇬🇧 UK Game Dev Hubs
+# 🇬🇧 UK Game Hubs
 
-> A community-driven, open source wiki mapping the UK's game development clusters.
+> A community-driven, open source directory of game development hubs across the UK.
 
 ## What is this?
 
-This repo is a living directory of **UK game development hubs** – places where game developers gather, co-work, meet up, and build studios. From major clusters like London, Guildford, and Dundee, to emerging scenes in smaller cities.
+This repo is a living directory of **UK game development hubs** – places where game developers gather, co-work, meet up, and build studios. From major clusters like London and Guildford, to grassroots communities in smaller cities.
 
 ## Why does this exist?
 
@@ -14,15 +14,23 @@ This repo is a living directory of **UK game development hubs** – places where
 
 ## The Hubs
 
-| Hub | Region | Type |
-|-----|--------|------|
-| People in Games (Peterborough) | East of England | Major Hub |
+| Hub | City | Region |
+|-----|------|--------|
+| People in Games \| PinG | Peterborough | East of England |
 
-> 📍 [View them on the live site](https://uijaz.github.io/uk-game-dev-hubs/)
+> 📍 [View them on the live site](https://uijaz.github.io/uk-game-hubs/)
 
 ## How to contribute
 
 Read [CONTRIBUTING.md](CONTRIBUTING.md) to add or update a hub.
+
+### For Non-Techies
+- [Open an Issue](https://github.com/uijaz/uk-game-hubs/issues/new/choose) with your hub details
+
+### For Techies
+- Fork the repo
+- Edit `data/hubs.json`
+- Submit a Pull Request
 
 ## License
 
