@@ -1,0 +1,23 @@
+{
+  "lastUpdated": "2026-08-03",
+  "hubs": [
+    {
+      "id": "peterborough",
+      "name": "People in Games | PinG",
+      "region": "East of England",
+      "type": "Major Hub",
+      "description": "A grassroots community for game devs, students, and creatives building a sustainable indie games and creative-tech ecosystem together.",
+      "studios": ["Agapo Games"],
+      "events": [
+        "Weekly Online Meetup",
+        "Weekly Co-Working Meetup",
+        "Monthly Show & Tell Meetup",
+        "Quarterly Games Industry Talks & Mixer Event"
+      ],
+      "links": {
+        "website": "https://peopleingames.org",
+        "discord": "https://tinyurl.com/pingdiscord"
+      }
+    }
+  ]
+}
