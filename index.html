@@ -28,6 +28,7 @@
     .region-header { background: #1a1a2e; color: white; padding: 12px 20px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
     .region-header:hover { opacity: 0.9; }
     .region-header h2 { font-size: 1.2rem; font-weight: 600; }
+    .region-header .region-stats { font-size: 0.8rem; font-weight: normal; opacity: 0.7; }
     .region-header .toggle { font-size: 1.2rem; transition: transform 0.2s; }
     .region-header .toggle.open { transform: rotate(180deg); }
     .region-content { padding: 15px; display: block; }
@@ -78,6 +79,16 @@
     let hubsData = { regions: [] };
     let allHubs = [];
 
+    function countHubsInRegion(region) {
+      let count = 0;
+      if (region.areas) {
+        region.areas.forEach(area => {
+          count += area.hubs ? area.hubs.length : 0;
+        });
+      }
+      return count;
+    }
+
     fetch('data/hubs.json')
       .then(res => res.json())
       .then(data => {
@@ -115,14 +126,19 @@
       let html = '';
       regions.forEach(region => {
         const regionId = region.id || region.name.toLowerCase().replace(/\s+/g, '-');
-        const hasAreas = region.areas && region.areas.length > 0;
+        const hubCount = countHubsInRegion(region);
+        const hasHubs = hubCount > 0;
+        
         html += `
           <div class="region-section">
             <div class="region-header" onclick="toggleRegion('${regionId}')">
-              <h2>📍 ${region.name} ${!hasAreas ? '<span style="font-weight:normal;font-size:0.7rem;opacity:0.6;">(no hubs yet)</span>' : ''}</h2>
-              ${hasAreas ? '<span class="toggle open" id="toggle-' + regionId + '">▼</span>' : '<span style="opacity:0.3;">-</span>'}
+              <h2>
+                📍 ${region.name}
+                <span class="region-stats">${hasHubs ? '[' + hubCount + ' hub' + (hubCount > 1 ? 's' : '') + ']' : '(no hubs yet)'}</span>
+              </h2>
+              ${hasHubs ? '<span class="toggle open" id="toggle-' + regionId + '">▼</span>' : '<span style="opacity:0.3;">-</span>'}
             </div>
-            <div class="region-content ${hasAreas ? '' : 'hidden'}" id="region-${regionId}">
+            <div class="region-content ${hasHubs ? '' : 'hidden'}" id="region-${regionId}">
         `;
         if (region.areas) {
           region.areas.forEach(area => {
