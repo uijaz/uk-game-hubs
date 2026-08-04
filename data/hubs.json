@@ -53,47 +53,6 @@
       "name": "East of England",
       "areas": [
         {
-          "id": "peterborough",
-          "name": "Peterborough",
-          "coordinates": {
-            "lat": 52.5739,
-            "lng": -0.2484
-          },
-          "hubs": [
-            {
-              "id": "ping",
-              "name": "People in Games | PinG",
-              "description": "A grassroots community for game devs, students, and creatives building a sustainable indie games and creative-tech ecosystem together.",
-              "studios": [
-                {
-                    "name": "Agapo Games",
-                    "website": "https://www.agapogames.com/"
-                }
-              ],
-              "events": [
-                "Weekly Online Meetup",
-                "Weekly Co-Working Meetup",
-                "Monthly Show & Tell Meetup",
-                "Quarterly Games Industry Talks & Mixer Event"
-              ],
-              "links": {
-                "website": "https://peopleingames.org",
-                "discord": "https://tinyurl.com/pingdiscord",
-                "linkedin": "https://www.linkedin.com/company/peopleingames",
-                "youtube": null,
-                "bluesky": "https://bsky.app/profile/peopleingames.bsky.social",
-                "eventbrite": "https://peopleingames.eventbrite.com",
-                "meetup": null,
-                "luma": null,
-                "facebook": null,
-                "instagram": null,
-                "tiktok": null,
-                "x": null
-              }
-            }
-          ]
-        },
-        {
           "id": "norfolk",
           "name": "Norfolk",
           "coordinates": {
@@ -128,6 +87,47 @@
                 "bluesky": null,
                 "eventbrite": null,
                 "meetup": "https://www.meetup.com/norfolkgamedevs",
+                "luma": null,
+                "facebook": null,
+                "instagram": null,
+                "tiktok": null,
+                "x": null
+              }
+            }
+          ]
+        },
+        {
+          "id": "peterborough",
+          "name": "Peterborough",
+          "coordinates": {
+            "lat": 52.5739,
+            "lng": -0.2484
+          },
+          "hubs": [
+            {
+              "id": "ping",
+              "name": "People in Games | PinG",
+              "description": "A grassroots community for game devs, students, and creatives building a sustainable indie games and creative-tech ecosystem together.",
+              "studios": [
+                {
+                    "name": "Agapo Games",
+                    "website": "https://www.agapogames.com/"
+                }
+              ],
+              "events": [
+                "Weekly Online Meetup",
+                "Weekly Co-Working Meetup",
+                "Monthly Show & Tell Meetup",
+                "Quarterly Games Industry Talks & Mixer Event"
+              ],
+              "links": {
+                "website": "https://peopleingames.org",
+                "discord": "https://tinyurl.com/pingdiscord",
+                "linkedin": "https://www.linkedin.com/company/peopleingames",
+                "youtube": null,
+                "bluesky": "https://bsky.app/profile/peopleingames.bsky.social",
+                "eventbrite": "https://peopleingames.eventbrite.com",
+                "meetup": null,
                 "luma": null,
                 "facebook": null,
                 "instagram": null,

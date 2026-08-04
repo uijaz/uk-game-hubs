@@ -32,15 +32,17 @@
     .region-header .toggle.open { transform: rotate(180deg); }
     .region-content { padding: 15px; display: block; }
     .region-content.hidden { display: none; }
-    .city-section { margin-bottom: 15px; border-left: 3px solid #e94560; padding-left: 15px; }
-    .city-section:last-child { margin-bottom: 0; }
-    .city-name { font-size: 1.1rem; font-weight: 600; color: #1a1a2e; margin-bottom: 8px; }
+    .area-section { margin-bottom: 15px; border-left: 3px solid #e94560; padding-left: 15px; }
+    .area-section:last-child { margin-bottom: 0; }
+    .area-name { font-size: 1.1rem; font-weight: 600; color: #1a1a2e; margin-bottom: 8px; }
     .hub-card { background: #f8f9fa; padding: 12px 15px; margin-bottom: 8px; border-radius: 6px; }
     .hub-card:last-child { margin-bottom: 0; }
     .hub-card h3 { font-size: 1rem; margin: 0 0 4px 0; color: #1a1a2e; }
     .hub-card .description { font-size: 0.9rem; color: #444; margin-bottom: 6px; }
     .tag { background: #eef2f7; padding: 2px 10px; border-radius: 12px; font-size: 0.75rem; margin: 2px 4px 2px 0; display: inline-block; }
     .tag.studio { background: #dbeafe; color: #1e40af; }
+    .tag.studio a { color: #1e40af; text-decoration: none; }
+    .tag.studio a:hover { text-decoration: underline; }
     .tag.event { background: #fce7f3; color: #9d174d; }
     .links { margin-top: 6px; }
     .links a { color: #1a1a2e; text-decoration: none; font-size: 0.8rem; margin-right: 10px; display: inline-block; }
@@ -63,7 +65,7 @@
     </div>
   </header>
 
-  <input type="text" id="search" placeholder="🔍 Search for a hub, city, region, studio, or event..." onkeyup="filter()">
+  <input type="text" id="search" placeholder="🔍 Search for a hub, area, region, studio, or event..." onkeyup="filter()">
 
   <div id="list"></div>
 
@@ -82,16 +84,18 @@
         hubsData = data;
         // Flatten all hubs for search
         hubsData.regions.forEach(region => {
-          region.cities.forEach(city => {
-            city.hubs.forEach(hub => {
-              allHubs.push({
-                ...hub,
-                city: city.name,
-                region: region.name,
-                coordinates: city.coordinates
+          if (region.areas) {
+            region.areas.forEach(area => {
+              area.hubs.forEach(hub => {
+                allHubs.push({
+                  ...hub,
+                  area: area.name,
+                  region: region.name,
+                  coordinates: area.coordinates
+                });
               });
             });
-          });
+          }
         });
         document.getElementById('count').textContent = '📍 ' + allHubs.length + ' hubs mapped across ' + hubsData.regions.length + ' regions';
         document.getElementById('lastUpdated').textContent = data.lastUpdated;
@@ -111,75 +115,88 @@
       let html = '';
       regions.forEach(region => {
         const regionId = region.id || region.name.toLowerCase().replace(/\s+/g, '-');
+        const hasAreas = region.areas && region.areas.length > 0;
         html += `
           <div class="region-section">
             <div class="region-header" onclick="toggleRegion('${regionId}')">
-              <h2>📍 ${region.name}</h2>
-              <span class="toggle open" id="toggle-${regionId}">▼</span>
+              <h2>📍 ${region.name} ${!hasAreas ? '<span style="font-weight:normal;font-size:0.7rem;opacity:0.6;">(no hubs yet)</span>' : ''}</h2>
+              ${hasAreas ? '<span class="toggle open" id="toggle-' + regionId + '">▼</span>' : '<span style="opacity:0.3;">-</span>'}
             </div>
-            <div class="region-content" id="region-${regionId}">
+            <div class="region-content ${hasAreas ? '' : 'hidden'}" id="region-${regionId}">
         `;
-        region.cities.forEach(city => {
-          html += `<div class="city-section">`;
-          html += `<div class="city-name">${city.name}`;
-          if (city.coordinates) {
-            html += ` <span class="coordinates-badge">📍 ${city.coordinates.lat}, ${city.coordinates.lng}</span>`;
-          }
-          html += `</div>`;
-          city.hubs.forEach(hub => {
-            html += `<div class="hub-card">`;
-            html += `<h3>${hub.name}</h3>`;
-            html += `<div class="description">${hub.description || ''}</div>`;
-            
-            // Studios
-            if (hub.studios && hub.studios.length > 0) {
-              html += `<div>`;
-              hub.studios.forEach(s => {
-                html += `<span class="tag studio">🏢 ${s}</span>`;
-              });
-              html += `</div>`;
+        if (region.areas) {
+          region.areas.forEach(area => {
+            html += `<div class="area-section">`;
+            html += `<div class="area-name">${area.name}`;
+            if (area.coordinates) {
+              html += ` <span class="coordinates-badge">📍 ${area.coordinates.lat}, ${area.coordinates.lng}</span>`;
             }
-            
-            // Events
-            if (hub.events && hub.events.length > 0) {
-              html += `<div>`;
-              hub.events.forEach(e => {
-                html += `<span class="tag event">📅 ${e}</span>`;
-              });
-              html += `</div>`;
-            }
-            
-            // Links
-            if (hub.links) {
-              const linkMap = {
-                'website': '🌐 Website',
-                'discord': '💬 Discord',
-                'linkedin': '🔗 LinkedIn',
-                'youtube': '📺 YouTube',
-                'bluesky': '🦋 Bluesky',
-                'eventbrite': '🎟️ Eventbrite',
-                'meetup': '📅 Meetup',
-                'luma': '✨ Luma',
-                'facebook': '📘 Facebook',
-                'instagram': '📸 Instagram',
-                'tiktok': '🎵 TikTok',
-                'x': '🐦 X'
-              };
-              let linksHtml = '';
-              for (const key in linkMap) {
-                if (hub.links[key]) {
-                  linksHtml += `<a href="${hub.links[key]}" target="_blank">${linkMap[key]}</a>`;
+            html += `</div>`;
+            area.hubs.forEach(hub => {
+              html += `<div class="hub-card">`;
+              html += `<h3>${hub.name}</h3>`;
+              html += `<div class="description">${hub.description || ''}</div>`;
+              
+              // Studios (support both string and object formats)
+              if (hub.studios && hub.studios.length > 0) {
+                html += `<div>`;
+                hub.studios.forEach(s => {
+                  if (typeof s === 'object' && s.name) {
+                    if (s.website) {
+                      html += `<span class="tag studio">🏢 <a href="${s.website}" target="_blank">${s.name}</a></span>`;
+                    } else {
+                      html += `<span class="tag studio">🏢 ${s.name}</span>`;
+                    }
+                  } else if (typeof s === 'string') {
+                    html += `<span class="tag studio">🏢 ${s}</span>`;
+                  }
+                });
+                html += `</div>`;
+              }
+              
+              // Events
+              if (hub.events && hub.events.length > 0) {
+                html += `<div>`;
+                hub.events.forEach(e => {
+                  if (e) {
+                    html += `<span class="tag event">📅 ${e}</span>`;
+                  }
+                });
+                html += `</div>`;
+              }
+              
+              // Links
+              if (hub.links) {
+                const linkMap = {
+                  'website': '🌐 Website',
+                  'discord': '💬 Discord',
+                  'linkedin': '🔗 LinkedIn',
+                  'youtube': '📺 YouTube',
+                  'bluesky': '🦋 Bluesky',
+                  'eventbrite': '🎟️ Eventbrite',
+                  'meetup': '📅 Meetup',
+                  'luma': '✨ Luma',
+                  'facebook': '📘 Facebook',
+                  'instagram': '📸 Instagram',
+                  'tiktok': '🎵 TikTok',
+                  'x': '🐦 X'
+                };
+                let linksHtml = '';
+                for (const key in linkMap) {
+                  if (hub.links[key]) {
+                    linksHtml += `<a href="${hub.links[key]}" target="_blank">${linkMap[key]}</a>`;
+                  }
+                }
+                if (linksHtml) {
+                  html += `<div class="links">${linksHtml}</div>`;
                 }
               }
-              if (linksHtml) {
-                html += `<div class="links">${linksHtml}</div>`;
-              }
-            }
-            
+              
+              html += `</div>`;
+            });
             html += `</div>`;
           });
-          html += `</div>`;
-        });
+        }
         html += `</div></div>`;
       });
       
@@ -204,23 +221,35 @@
       
       const filteredRegions = [];
       hubsData.regions.forEach(region => {
-        const matchedCities = [];
-        region.cities.forEach(city => {
-          const matchedHubs = city.hubs.filter(hub => {
-            const searchText = (hub.name + ' ' + hub.description + ' ' + city.name + ' ' + region.name + ' ' + (hub.studios || []).join(' ') + ' ' + (hub.events || []).join(' ')).toLowerCase();
-            return searchText.includes(q);
-          });
-          if (matchedHubs.length > 0) {
-            matchedCities.push({
-              ...city,
-              hubs: matchedHubs
+        const matchedAreas = [];
+        if (region.areas) {
+          region.areas.forEach(area => {
+            const matchedHubs = area.hubs.filter(hub => {
+              let studioText = '';
+              if (hub.studios) {
+                hub.studios.forEach(s => {
+                  if (typeof s === 'object' && s.name) {
+                    studioText += ' ' + s.name;
+                  } else if (typeof s === 'string') {
+                    studioText += ' ' + s;
+                  }
+                });
+              }
+              const searchText = (hub.name + ' ' + hub.description + ' ' + area.name + ' ' + region.name + ' ' + studioText + ' ' + (hub.events || []).join(' ')).toLowerCase();
+              return searchText.includes(q);
             });
-          }
-        });
-        if (matchedCities.length > 0) {
+            if (matchedHubs.length > 0) {
+              matchedAreas.push({
+                ...area,
+                hubs: matchedHubs
+              });
+            }
+          });
+        }
+        if (matchedAreas.length > 0) {
           filteredRegions.push({
             ...region,
-            cities: matchedCities
+            areas: matchedAreas
           });
         }
       });
