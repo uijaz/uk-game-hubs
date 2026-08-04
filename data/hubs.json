@@ -9,7 +9,41 @@
     {
       "id": "south-east",
       "name": "South East",
-      "cities": []
+      "cities": [
+        {
+          "id": "sussex",
+          "name": "Sussex",
+          "coordinates": {
+            "lat": 50.9167,
+            "lng": -0.0833
+          },
+          "hubs": [
+            {
+              "id": "sussex",
+              "name": "Sussex Games",
+              "description": "Empowering the Games Industry in Sussex",
+              "studios": [null],
+              "events": [
+                null
+              ],
+              "links": {
+                "website": "https://linktr.ee/SussexGames",
+                "discord": null,
+                "linkedin": "https://www.linkedin.com/company/sussex-games",
+                "youtube": null,
+                "bluesky": null,
+                "eventbrite": null,
+                "meetup": null,
+                "luma": "https://luma.com/SussexGames",
+                "facebook": null,
+                "instagram": null,
+                "tiktok": null,
+                "x": null
+              }
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "south-west",
@@ -42,10 +76,10 @@
               "links": {
                 "website": "https://peopleingames.org",
                 "discord": "https://tinyurl.com/pingdiscord",
-                "linkedin": null,
+                "linkedin": "https://www.linkedin.com/company/peopleingames",
                 "youtube": null,
-                "bluesky": null,
-                "eventbrite": null,
+                "bluesky": "https://bsky.app/profile/peopleingames.bsky.social",
+                "eventbrite": "https://peopleingames.eventbrite.com",
                 "meetup": null,
                 "luma": null,
                 "facebook": null,
