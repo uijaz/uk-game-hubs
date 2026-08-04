@@ -1,0 +1,191 @@
+name: "🌟 Add a New Hub"
+description: "Submit a new UK game dev hub to the directory"
+title: "[New Hub] "
+labels: ["enhancement", "new-hub"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Thanks for contributing! 🙌
+        Fill out this form to add a new UK game dev hub to the directory.
+        
+        **Note:** If you're adding a hub in a new city, we'll add it to the correct region.
+
+  - type: input
+    id: hub-name
+    attributes:
+      label: "Hub Name"
+      description: "What is the name of the hub/community?"
+      placeholder: "e.g., People in Games | PinG"
+    validations:
+      required: true
+
+  - type: input
+    id: region
+    attributes:
+      label: "Region"
+      description: "Which UK region is this hub in?"
+      placeholder: "e.g., East of England, Greater London, Scotland"
+    validations:
+      required: true
+
+  - type: input
+    id: area
+    attributes:
+      label: "City or Area"
+      description: "Which city or area is this hub based in?"
+      placeholder: "e.g., Peterborough, Norfolk, Soho"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: "Description"
+      description: "Briefly describe what this hub is about."
+      placeholder: "A grassroots community for game devs, students, and creatives..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: studios
+    attributes:
+      label: "Studios (optional)"
+      description: "List any studios based at this hub (one per line). Include website URLs if you have them."
+      placeholder: |
+        Agapo Games - https://www.agapogames.com/
+        Fairer Games - https://fairer.games
+    validations:
+      required: false
+
+  - type: textarea
+    id: events
+    attributes:
+      label: "Events (optional)"
+      description: "List any regular events at this hub (one per line)."
+      placeholder: |
+        Weekly Online Meetup
+        Monthly Show & Tell
+        Quarterly Industry Talks
+    validations:
+      required: false
+
+  - type: input
+    id: website
+    attributes:
+      label: "Website"
+      description: "Link to the hub's main website"
+      placeholder: "https://peopleingames.org"
+    validations:
+      required: false
+
+  - type: input
+    id: discord
+    attributes:
+      label: "Discord"
+      description: "Link to the hub's Discord server"
+      placeholder: "https://discord.gg/..."
+    validations:
+      required: false
+
+  - type: input
+    id: linkedin
+    attributes:
+      label: "LinkedIn"
+      description: "Link to the hub's LinkedIn page"
+      placeholder: "https://linkedin.com/company/..."
+    validations:
+      required: false
+
+  - type: input
+    id: bluesky
+    attributes:
+      label: "Bluesky"
+      description: "Link to the hub's Bluesky profile"
+      placeholder: "https://bsky.app/profile/..."
+    validations:
+      required: false
+
+  - type: input
+    id: x
+    attributes:
+      label: "X (Twitter)"
+      description: "Link to the hub's X/Twitter profile"
+      placeholder: "https://x.com/..."
+    validations:
+      required: false
+
+  - type: input
+    id: meetup
+    attributes:
+      label: "Meetup"
+      description: "Link to the hub's Meetup page"
+      placeholder: "https://meetup.com/..."
+    validations:
+      required: false
+
+  - type: input
+    id: eventbrite
+    attributes:
+      label: "Eventbrite"
+      description: "Link to the hub's Eventbrite page"
+      placeholder: "https://eventbrite.com/..."
+    validations:
+      required: false
+
+  - type: input
+    id: luma
+    attributes:
+      label: "Luma"
+      description: "Link to the hub's Luma page"
+      placeholder: "https://lu.ma/..."
+    validations:
+      required: false
+
+  - type: input
+    id: youtube
+    attributes:
+      label: "YouTube"
+      description: "Link to the hub's YouTube channel"
+      placeholder: "https://youtube.com/..."
+    validations:
+      required: false
+
+  - type: input
+    id: instagram
+    attributes:
+      label: "Instagram"
+      description: "Link to the hub's Instagram"
+      placeholder: "https://instagram.com/..."
+    validations:
+      required: false
+
+  - type: input
+    id: facebook
+    attributes:
+      label: "Facebook"
+      description: "Link to the hub's Facebook page"
+      placeholder: "https://facebook.com/..."
+    validations:
+      required: false
+
+  - type: input
+    id: tiktok
+    attributes:
+      label: "TikTok"
+      description: "Link to the hub's TikTok"
+      placeholder: "https://tiktok.com/..."
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ## 🚀 Next Steps
+        Once you submit this issue:
+        1. We'll review your submission
+        2. We'll add the hub to our JSON data
+        3. The live site will update within a few minutes
+        
+        Thank you for helping the UK game dev community! 🎮

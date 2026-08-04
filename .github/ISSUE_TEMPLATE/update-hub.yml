@@ -1,0 +1,37 @@
+name: "✏️ Suggest an Update"
+description: "Suggest changes to an existing hub"
+title: "[Update Hub] "
+labels: ["enhancement", "update"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Help keep the directory accurate! 🙌
+        Let us know what needs updating.
+
+  - type: input
+    id: hub-name
+    attributes:
+      label: "Hub Name"
+      description: "Which hub needs updating?"
+      placeholder: "e.g., People in Games | PinG"
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-to-update
+    attributes:
+      label: "What needs updating?"
+      description: "Be specific about what's changed"
+      placeholder: |
+        - The Discord link has changed to: https://discord.gg/...
+        - There's a new event: Monthly Game Jam
+        - The description should be updated to: ...
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        Thanks for keeping the directory accurate! 🎮
