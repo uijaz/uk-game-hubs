@@ -27,18 +27,48 @@
     .region-section { background: white; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); overflow: hidden; }
     .region-header { background: #1a1a2e; color: white; padding: 12px 20px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
     .region-header:hover { opacity: 0.9; }
-    .region-header h2 { font-size: 1.2rem; font-weight: 600; }
+    .region-header h2 { font-size: 1.2rem; font-weight: 600; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
     .region-header .region-stats { font-size: 0.8rem; font-weight: normal; opacity: 0.7; }
-    .region-header .toggle { font-size: 1.2rem; transition: transform 0.2s; }
+    .region-header .region-actions { display: flex; align-items: center; gap: 10px; }
+    .region-header .toggle { font-size: 1.2rem; transition: transform 0.2s; cursor: pointer; }
     .region-header .toggle.open { transform: rotate(180deg); }
+    .btn-add-hub { 
+      background: #e94560; 
+      color: white; 
+      border: none; 
+      padding: 4px 12px; 
+      border-radius: 20px; 
+      font-size: 0.75rem; 
+      cursor: pointer; 
+      font-weight: 600;
+      transition: background 0.2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-add-hub:hover { background: #c73652; }
+    .btn-update-hub { 
+      background: #f0ad4e; 
+      color: white; 
+      border: none; 
+      padding: 2px 10px; 
+      border-radius: 20px; 
+      font-size: 0.65rem; 
+      cursor: pointer; 
+      font-weight: 600;
+      transition: background 0.2s;
+      text-decoration: none;
+      display: inline-block;
+      margin-left: 8px;
+    }
+    .btn-update-hub:hover { background: #d49a3d; }
     .region-content { padding: 15px; display: block; }
     .region-content.hidden { display: none; }
     .area-section { margin-bottom: 15px; border-left: 3px solid #e94560; padding-left: 15px; }
     .area-section:last-child { margin-bottom: 0; }
-    .area-name { font-size: 1.1rem; font-weight: 600; color: #1a1a2e; margin-bottom: 8px; }
-    .hub-card { background: #f8f9fa; padding: 12px 15px; margin-bottom: 8px; border-radius: 6px; }
+    .area-name { font-size: 1.1rem; font-weight: 600; color: #1a1a2e; margin-bottom: 8px; display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+    .hub-card { background: #f8f9fa; padding: 12px 15px; margin-bottom: 8px; border-radius: 6px; position: relative; }
     .hub-card:last-child { margin-bottom: 0; }
-    .hub-card h3 { font-size: 1rem; margin: 0 0 4px 0; color: #1a1a2e; }
+    .hub-card h3 { font-size: 1rem; margin: 0 0 4px 0; color: #1a1a2e; display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
     .hub-card .description { font-size: 0.9rem; color: #444; margin-bottom: 6px; }
     .tag { background: #eef2f7; padding: 2px 10px; border-radius: 12px; font-size: 0.75rem; margin: 2px 4px 2px 0; display: inline-block; }
     .tag.studio { background: #dbeafe; color: #1e40af; }
@@ -53,6 +83,7 @@
     footer a { color: #1a1a2e; }
     .github-link { color: white; text-decoration: underline; }
     .coordinates-badge { font-size: 0.7rem; color: #888; margin-left: 8px; }
+    .hub-actions { display: flex; align-items: center; flex-wrap: wrap; }
   </style>
 </head>
 <body>
@@ -89,6 +120,18 @@
       return count;
     }
 
+    function getRegionId(region) {
+      return region.id || region.name.toLowerCase().replace(/\s+/g, '-');
+    }
+
+    function getAreaId(area) {
+      return area.id || area.name.toLowerCase().replace(/\s+/g, '-');
+    }
+
+    function getHubId(hub) {
+      return hub.id || hub.name.toLowerCase().replace(/[^a-z0-9]/g, '-');
+    }
+
     fetch('data/hubs.json')
       .then(res => res.json())
       .then(data => {
@@ -101,7 +144,9 @@
                 allHubs.push({
                   ...hub,
                   area: area.name,
+                  areaId: getAreaId(area),
                   region: region.name,
+                  regionId: getRegionId(region),
                   coordinates: area.coordinates
                 });
               });
@@ -125,9 +170,13 @@
 
       let html = '';
       regions.forEach(region => {
-        const regionId = region.id || region.name.toLowerCase().replace(/\s+/g, '-');
+        const regionId = getRegionId(region);
         const hubCount = countHubsInRegion(region);
         const hasHubs = hubCount > 0;
+        
+        // GitHub issue URLs
+        const addHubUrl = 'https://github.com/uijaz/uk-game-hubs/issues/new?template=add-hub.yml&labels=enhancement,new-hub&title=[New+Hub]+' + encodeURIComponent(region.name);
+        const updateHubUrl = 'https://github.com/uijaz/uk-game-hubs/issues/new?template=update-hub.yml&labels=enhancement,update&title=[Update+Hub]';
         
         html += `
           <div class="region-section">
@@ -136,12 +185,16 @@
                 📍 ${region.name}
                 <span class="region-stats">${hasHubs ? '[' + hubCount + ' hub' + (hubCount > 1 ? 's' : '') + ']' : '(no hubs yet)'}</span>
               </h2>
-              ${hasHubs ? '<span class="toggle open" id="toggle-' + regionId + '">▼</span>' : '<span style="opacity:0.3;">-</span>'}
+              <div class="region-actions">
+                <a href="${addHubUrl}" target="_blank" class="btn-add-hub" onclick="event.stopPropagation();">➕ Add Hub</a>
+                ${hasHubs ? '<span class="toggle open" id="toggle-' + regionId + '">▼</span>' : '<span style="opacity:0.3;">-</span>'}
+              </div>
             </div>
             <div class="region-content ${hasHubs ? '' : 'hidden'}" id="region-${regionId}">
         `;
         if (region.areas) {
           region.areas.forEach(area => {
+            const areaId = getAreaId(area);
             html += `<div class="area-section">`;
             html += `<div class="area-name">${area.name}`;
             if (area.coordinates) {
@@ -149,8 +202,13 @@
             }
             html += `</div>`;
             area.hubs.forEach(hub => {
+              const hubId = getHubId(hub);
+              const updateUrl = updateHubUrl + '&title=[Update+Hub]+' + encodeURIComponent(hub.name);
               html += `<div class="hub-card">`;
+              html += `<div class="hub-actions">`;
               html += `<h3>${hub.name}</h3>`;
+              html += `<a href="${updateUrl}" target="_blank" class="btn-update-hub">✏️ Suggest Update</a>`;
+              html += `</div>`;
               html += `<div class="description">${hub.description || ''}</div>`;
               
               // Studios (support both string and object formats)
