@@ -4,12 +4,12 @@
     {
       "id": "greater-london",
       "name": "Greater London",
-      "cities": []
+      "areas": []
     },
     {
       "id": "south-east",
       "name": "South East",
-      "cities": [
+      "areas": [
         {
           "id": "sussex",
           "name": "Sussex",
@@ -21,11 +21,9 @@
             {
               "id": "sussex",
               "name": "Sussex Games",
-              "description": "Empowering the Games Industry in Sussex",
-              "studios": [null],
-              "events": [
-                null
-              ],
+              "description": "Empowering the Games Industry in Sussex.",
+              "studios": [],
+              "events": [],
               "links": {
                 "website": "https://linktr.ee/SussexGames",
                 "discord": null,
@@ -48,12 +46,12 @@
     {
       "id": "south-west",
       "name": "South West",
-      "cities": []
+      "areas": []
     },
     {
       "id": "east-of-england",
       "name": "East of England",
-      "cities": [
+      "areas": [
         {
           "id": "peterborough",
           "name": "Peterborough",
@@ -66,7 +64,12 @@
               "id": "ping",
               "name": "People in Games | PinG",
               "description": "A grassroots community for game devs, students, and creatives building a sustainable indie games and creative-tech ecosystem together.",
-              "studios": ["Agapo Games"],
+              "studios": [
+                {
+                    "name": "Agapo Games",
+                    "website": "https://www.agapogames.com/"
+                }
+              ],
               "events": [
                 "Weekly Online Meetup",
                 "Weekly Co-Working Meetup",
@@ -89,48 +92,92 @@
               }
             }
           ]
+        },
+        {
+          "id": "norfolk",
+          "name": "Norfolk",
+          "coordinates": {
+            "lat": 52.4021,
+            "lng": 0.57
+          },
+          "hubs": [
+            {
+              "id": "ngd",
+              "name": "Norfolk Game Developers",
+              "description": "Norfolk Game Developers are a welcoming community for local game creators of all experience & backgrounds.",
+              "studios": [
+                {
+                    "name": "Fairer Games",
+                    "website": "https://fairer.games"
+                },
+                {
+                    "name": "Rubber Ducky Snacks",
+                    "website": "https://www.rubberduckysnacks.com"
+                }
+              ],
+              "events": [
+                "Coffee Mornings with Norfolk Game Developers", 
+                "Co-working Afternoon at The Digital Hub",
+                "Monthly Show and Tell Event"
+              ],
+              "links": {
+                "website": "https://norfolkgamedevs.carrd.co/",
+                "discord": "https://discord.gg/pyXAmwt64r",
+                "linkedin": "https://www.linkedin.com/company/norfolk-game-developers",
+                "youtube": null,
+                "bluesky": null,
+                "eventbrite": null,
+                "meetup": "https://www.meetup.com/norfolkgamedevs",
+                "luma": null,
+                "facebook": null,
+                "instagram": null,
+                "tiktok": null,
+                "x": null
+              }
+            }
+          ]
         }
       ]
     },
     {
       "id": "west-midlands",
       "name": "West Midlands",
-      "cities": []
+      "areas": []
     },
     {
       "id": "east-midlands",
       "name": "East Midlands",
-      "cities": []
+      "areas": []
     },
     {
       "id": "north-west",
       "name": "North West",
-      "cities": []
+      "areas": []
     },
     {
       "id": "north-east",
       "name": "North East",
-      "cities": []
+      "areas": []
     },
     {
       "id": "yorkshire-humber",
       "name": "Yorkshire & Humber",
-      "cities": []
+      "areas": []
     },
     {
       "id": "scotland",
       "name": "Scotland",
-      "cities": []
+      "areas": []
     },
     {
       "id": "wales",
       "name": "Wales",
-      "cities": []
+      "areas": []
     },
     {
       "id": "northern-ireland",
       "name": "Northern Ireland",
-      "cities": []
+      "areas": []
     }
   ]
 }
