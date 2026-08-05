@@ -3,334 +3,456 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <!-- SEO Meta Tags -->
-  <title>UK Game Hubs - Community Directory</title>
-  <meta name="description" content="A community-driven directory of game development hubs across the UK. Find and contribute to local game dev communities.">
+  <title>UK Game Hubs</title>
+  <meta name="description" content="Find game development hubs across the UK.">
   <link rel="canonical" href="https://uijaz.github.io/uk-game-hubs/">
-  
-  <!-- Open Graph / Social Media -->
   <meta property="og:title" content="UK Game Hubs">
-  <meta property="og:description" content="Find and contribute to game dev hubs across the UK.">
+  <meta property="og:description" content="Find game development hubs across the UK.">
   <meta property="og:url" content="https://uijaz.github.io/uk-game-hubs/">
   <meta property="og:type" content="website">
-  
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 1200px; margin: 0 auto; padding: 20px; background: #f8f9fa; }
-    header { background: #1a1a2e; color: white; padding: 30px; border-radius: 12px; margin-bottom: 20px; }
-    header h1 { margin: 0; font-size: 2rem; }
-    header p { opacity: 0.8; margin: 5px 0 0 0; }
-    .stats { font-size: 0.9rem; opacity: 0.9; margin-top: 10px; }
-    .stats a { color: white; }
-    input { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ddd; font-size: 1rem; margin-bottom: 20px; box-sizing: border-box; }
-    .region-section { background: white; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); overflow: hidden; }
-    .region-header { background: #1a1a2e; color: white; padding: 12px 20px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
-    .region-header:hover { opacity: 0.9; }
-    .region-header h2 { font-size: 1.2rem; font-weight: 600; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-    .region-header .region-stats { font-size: 0.8rem; font-weight: normal; opacity: 0.7; }
-    .region-header .region-actions { display: flex; align-items: center; gap: 10px; }
-    .region-header .toggle { font-size: 1.2rem; transition: transform 0.2s; cursor: pointer; }
-    .region-header .toggle.open { transform: rotate(180deg); }
-    .btn-add-hub { 
-      background: #e94560; 
-      color: white; 
-      border: none; 
-      padding: 4px 12px; 
-      border-radius: 20px; 
-      font-size: 0.75rem; 
-      cursor: pointer; 
-      font-weight: 600;
-      transition: background 0.2s;
-      text-decoration: none;
-      display: inline-block;
-    }
-    .btn-add-hub:hover { background: #c73652; }
-    .btn-update-hub { 
-      background: #f0ad4e; 
-      color: white; 
-      border: none; 
-      padding: 2px 10px; 
-      border-radius: 20px; 
-      font-size: 0.65rem; 
-      cursor: pointer; 
-      font-weight: 600;
-      transition: background 0.2s;
-      text-decoration: none;
-      display: inline-block;
-      margin-left: 8px;
-    }
-    .btn-update-hub:hover { background: #d49a3d; }
-    .region-content { padding: 15px; display: block; }
-    .region-content.hidden { display: none; }
-    .area-section { margin-bottom: 15px; border-left: 3px solid #e94560; padding-left: 15px; }
-    .area-section:last-child { margin-bottom: 0; }
-    .area-name { font-size: 1.1rem; font-weight: 600; color: #1a1a2e; margin-bottom: 8px; display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
-    .hub-card { background: #f8f9fa; padding: 12px 15px; margin-bottom: 8px; border-radius: 6px; position: relative; }
-    .hub-card:last-child { margin-bottom: 0; }
-    .hub-card h3 { font-size: 1rem; margin: 0 0 4px 0; color: #1a1a2e; display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
-    .hub-card .description { font-size: 0.9rem; color: #444; margin-bottom: 6px; }
-    .tag { background: #eef2f7; padding: 2px 10px; border-radius: 12px; font-size: 0.75rem; margin: 2px 4px 2px 0; display: inline-block; }
-    .tag.studio { background: #dbeafe; color: #1e40af; }
-    .tag.studio a { color: #1e40af; text-decoration: none; }
-    .tag.studio a:hover { text-decoration: underline; }
-    .tag.event { background: #fce7f3; color: #9d174d; }
-    .links { margin-top: 6px; }
-    .links a { color: #1a1a2e; text-decoration: none; font-size: 0.8rem; margin-right: 10px; display: inline-block; }
-    .links a:hover { text-decoration: underline; }
-    .empty { text-align: center; color: #666; padding: 40px; }
-    footer { text-align: center; margin-top: 30px; color: #888; font-size: 0.85rem; }
-    footer a { color: #1a1a2e; }
-    .github-link { color: white; text-decoration: underline; }
-    .coordinates-badge { font-size: 0.7rem; color: #888; margin-left: 8px; }
-    .hub-actions { display: flex; align-items: center; flex-wrap: wrap; }
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;max-width:1100px;margin:0 auto;padding:20px;background:#f8f9fa}
+    header{background:#1a1a2e;color:#fff;padding:30px;border-radius:12px;margin-bottom:20px}
+    header h1{font-size:2rem}
+    header p{opacity:.8;margin:5px 0 0}
+    .stats{font-size:.9rem;opacity:.9;margin-top:10px}
+    .stats a{color:#fff}
+    .search-container{background:#fff;padding:20px;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.08);margin-bottom:20px}
+    .search-row{display:flex;gap:10px;flex-wrap:wrap}
+    .search-row input{flex:1;padding:12px;border:1px solid #ddd;border-radius:8px;font-size:1rem;min-width:180px}
+    .search-row input:focus{outline:2px solid #e94560;border-color:#e94560}
+    .search-row button{padding:12px 24px;background:#e94560;color:#fff;border:none;border-radius:8px;font-size:1rem;cursor:pointer;font-weight:600}
+    .search-row button:hover{background:#c73652}
+    .search-row button:active{transform:scale(0.97)}
+    .filter-row{display:flex;align-items:center;gap:10px;margin-top:12px;flex-wrap:wrap}
+    .filter-row label{font-weight:600;color:#1a1a2e}
+    .filter-row select{padding:8px 12px;border:1px solid #ddd;border-radius:8px;font-size:.95rem;background:#fff;cursor:pointer;min-width:120px}
+    .clear-search{background:0;border:none;color:#e94560;cursor:pointer;font-size:.9rem;text-decoration:underline;margin-left:15px;display:none}
+    .results-header{background:#eef2f7;padding:10px 15px;border-radius:8px;margin-bottom:15px;font-size:.95rem}
+    .region-section{background:#fff;border-radius:12px;margin-bottom:20px;box-shadow:0 1px 3px rgba(0,0,0,.05);overflow:hidden}
+    .region-header{background:#1a1a2e;color:#fff;padding:12px 20px;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+    .region-header:hover{opacity:.9}
+    .region-header h2{font-size:1.2rem;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+    .region-header .stats{font-size:.8rem;font-weight:400;opacity:.7}
+    .region-header .toggle{font-size:1.2rem;transition:transform .2s}
+    .region-header .toggle.open{transform:rotate(180deg)}
+    .btn-add-hub{background:#e94560;color:#fff;border:none;padding:4px 12px;border-radius:20px;font-size:.75rem;cursor:pointer;font-weight:600;text-decoration:none;display:inline-block}
+    .btn-add-hub:hover{background:#c73652}
+    .btn-update-hub{background:#f0ad4e;color:#fff;border:none;padding:2px 10px;border-radius:20px;font-size:.65rem;cursor:pointer;font-weight:600;text-decoration:none;display:inline-block;margin-left:8px}
+    .btn-update-hub:hover{background:#d49a3d}
+    .region-content{padding:15px;display:block}
+    .region-content.hidden{display:none}
+    .area-section{margin-bottom:15px;border-left:3px solid #e94560;padding-left:15px}
+    .area-section:last-child{margin-bottom:0}
+    .area-name{font-size:1.1rem;font-weight:600;color:#1a1a2e;margin-bottom:8px}
+    .hub-card{background:#f8f9fa;padding:12px 15px;margin-bottom:8px;border-radius:6px}
+    .hub-card:last-child{margin-bottom:0}
+    .hub-card h3{font-size:1rem;margin:0 0 4px;color:#1a1a2e;display:flex;align-items:center;flex-wrap:wrap;gap:8px}
+    .hub-card .desc{font-size:.9rem;color:#444;margin-bottom:6px}
+    .hub-distance{font-size:.75rem;color:#e94560;font-weight:600;margin-left:8px}
+    .tag{background:#eef2f7;padding:2px 10px;border-radius:12px;font-size:.75rem;margin:2px 4px 2px 0;display:inline-block}
+    .tag.event{background:#fce7f3;color:#9d174d}
+    .links{margin-top:6px}
+    .links a{color:#1a1a2e;text-decoration:none;font-size:.8rem;margin-right:10px}
+    .links a:hover{text-decoration:underline}
+    .empty{text-align:center;color:#666;padding:40px}
+    .empty a{color:#e94560}
+    .helper-text{font-size:.8rem;color:#888;margin-top:8px;text-align:center}
+    .helper-text strong{color:#1a1a2e}
+    footer{text-align:center;margin-top:30px;color:#888;font-size:.85rem}
+    footer a{color:#1a1a2e}
+    .github-link{color:#fff;text-decoration:underline}
+    .hub-actions{display:flex;align-items:center;flex-wrap:wrap}
+    @media(max-width:600px){.search-row{flex-direction:column}.search-row input{min-width:100%}.filter-row{flex-direction:column;align-items:stretch}.filter-row select{min-width:100%}.region-header h2{font-size:1rem}.helper-text{font-size:.7rem}}
   </style>
 </head>
 <body>
 
-  <header>
-    <h1>🇬🇧 UK Game Hubs</h1>
-    <p>A community-driven directory of game development hubs across the UK</p>
-    <div class="stats">
-      <span id="count">Loading hubs...</span> · 
-      <a href="https://github.com/uijaz/uk-game-hubs" class="github-link" target="_blank">⭐ Contribute on GitHub</a>
-    </div>
-  </header>
+<header>
+  <h1>🇬🇧 UK Game Hubs</h1>
+  <p>Find game development communities across the UK</p>
+  <div class="stats">
+    <span id="count">Loading hubs...</span> · 
+    <a href="https://github.com/uijaz/uk-game-hubs" class="github-link" target="_blank">⭐ Contribute on GitHub</a>
+  </div>
+</header>
 
-  <input type="text" id="search" placeholder="🔍 Search for a hub, area, region, studio, or event..." onkeyup="filter()">
+<div class="search-container">
+  <div class="search-row">
+    <input type="text" id="searchInput" placeholder="Search by hub name, city, or postcode" autocomplete="off">
+    <button onclick="doSearch()">🔍 Search</button>
+  </div>
+  <div class="filter-row">
+    <label for="distanceSelect">📍 Within:</label>
+    <select id="distanceSelect">
+      <option value="5">5 miles</option>
+      <option value="10" selected>10 miles</option>
+      <option value="25">25 miles</option>
+      <option value="50">50 miles</option>
+      <option value="all">All UK</option>
+    </select>
+    <button class="clear-search" onclick="clearSearch()" id="clearBtn">✕ Clear</button>
+  </div>
+  <div class="helper-text">💡 For best results, use a full postcode (e.g. PE1 5BW) to find hubs near you</div>
+</div>
 
-  <div id="list"></div>
+<div id="list"></div>
 
-  <footer>
-    Data from <a href="https://github.com/uijaz/uk-game-hubs">uk-game-hubs</a> · 
-    Last updated: <span id="lastUpdated">-</span>
-  </footer>
+<footer>
+  Data from <a href="https://github.com/uijaz/uk-game-hubs">uk-game-hubs</a> · 
+  Last updated: <span id="lastUpdated">-</span>
+</footer>
 
-  <script>
-    let hubsData = { regions: [] };
-    let allHubs = [];
+<script>
+// ============================================================
+// DATA
+// ============================================================
+let hubsData = { regions: [] };
+let allHubs = [];
+let isSearchActive = false;
 
-    function countHubsInRegion(region) {
-      let count = 0;
+// ============================================================
+// HELPERS
+// ============================================================
+function getRegionId(r) { return r.id || r.name.toLowerCase().replace(/\s+/g, '-'); }
+
+function getDistance(lat1, lon1, lat2, lon2) {
+  const R = 3959;
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLon = (lon2 - lon1) * Math.PI / 180;
+  const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+    Math.sin(dLon/2) * Math.sin(dLon/2);
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+}
+
+function countHubs(region) {
+  let c = 0;
+  if (region.areas) region.areas.forEach(a => c += a.hubs ? a.hubs.length : 0);
+  return c;
+}
+
+// ============================================================
+// POSTCODE / OUTCODE DETECTION
+// ============================================================
+function isPostcode(text) {
+  const trimmed = text.trim().toUpperCase();
+  // Full postcode: CB1 2BB, GU2 7RE
+  if (/[A-Z]{1,2}[0-9][A-Z0-9]? ?[0-9][A-Z]{2}/.test(trimmed)) {
+    return true;
+  }
+  // Outcode: CB1, GU2, M1, EH1
+  if (/^[A-Z]{1,2}[0-9][A-Z0-9]?$/.test(trimmed)) {
+    return true;
+  }
+  return false;
+}
+
+function isFullPostcode(text) {
+  return /[A-Z]{1,2}[0-9][A-Z0-9]? ?[0-9][A-Z]{2}/.test(text.trim().toUpperCase());
+}
+
+function isOutcode(text) {
+  return /^[A-Z]{1,2}[0-9][A-Z0-9]?$/.test(text.trim().toUpperCase());
+}
+
+// ============================================================
+// MAIN SEARCH
+// ============================================================
+function doSearch() {
+  const rawQuery = document.getElementById('searchInput').value.trim();
+  const distance = document.getElementById('distanceSelect').value;
+  const clearBtn = document.getElementById('clearBtn');
+  
+  if (!rawQuery) { clearSearch(); return; }
+  
+  clearBtn.style.display = 'inline-block';
+  isSearchActive = true;
+  
+  // TEXT SEARCH (hub name, city, region, etc.)
+  const textResults = searchByText(rawQuery);
+  
+  // POSTCODE / OUTCODE SEARCH
+  const query = rawQuery.toUpperCase();
+  
+  if (isPostcode(query)) {
+    document.getElementById('list').innerHTML = '<div class="empty">🔍 Searching for ' + query + '...</div>';
+    
+    let apiUrl;
+    if (isFullPostcode(query)) {
+      apiUrl = 'https://api.postcodes.io/postcodes/' + encodeURIComponent(query);
+    } else if (isOutcode(query)) {
+      apiUrl = 'https://api.postcodes.io/outcodes/' + encodeURIComponent(query);
+    } else {
+      apiUrl = 'https://api.postcodes.io/postcodes/' + encodeURIComponent(query);
+    }
+    
+    fetch(apiUrl)
+      .then(res => {
+        if (!res.ok) throw new Error('Location not found');
+        return res.json();
+      })
+      .then(data => {
+        if (data.status === 404 || !data.result) throw new Error('Not found');
+        
+        const lat = data.result.latitude;
+        const lng = data.result.longitude;
+        const distanceLimit = distance === 'all' ? Infinity : parseInt(distance);
+        
+        const results = allHubs.filter(hub => {
+          if (!hub.coordinates) return false;
+          return getDistance(lat, lng, hub.coordinates.lat, hub.coordinates.lng) <= distanceLimit;
+        });
+        
+        results.sort((a, b) => {
+          return getDistance(lat, lng, a.coordinates.lat, a.coordinates.lng) -
+                 getDistance(lat, lng, b.coordinates.lat, b.coordinates.lng);
+        });
+        
+        results.forEach(hub => {
+          hub._distance = Math.round(getDistance(lat, lng, hub.coordinates.lat, hub.coordinates.lng) * 10) / 10;
+        });
+        
+        renderResults(results, query, distanceLimit);
+      })
+      .catch(err => {
+        document.getElementById('list').innerHTML = '<div class="empty">⚠️ Postcode not found. Please check and try again.</div>';
+      });
+    return;
+  }
+  
+  // TEXT SEARCH RESULTS
+  if (textResults.length > 0) {
+    renderResults(textResults, rawQuery, null);
+  } else {
+    document.getElementById('list').innerHTML = '<div class="empty">No hubs found for "<strong>' + rawQuery + '</strong>". Try a postcode or different search term.</div>';
+  }
+}
+
+// ============================================================
+// TEXT SEARCH
+// ============================================================
+function searchByText(query) {
+  const q = query.toLowerCase().trim();
+  return allHubs.filter(hub => {
+    const searchText = (
+      hub.name + ' ' +
+      hub.description + ' ' +
+      hub.area + ' ' +
+      hub.region + ' ' +
+      (hub.events || []).join(' ') + ' ' +
+      (hub.studios || []).map(s => typeof s === 'object' ? s.name : s).join(' ')
+    ).toLowerCase();
+    return searchText.includes(q);
+  });
+}
+
+// ============================================================
+// RENDER RESULTS
+// ============================================================
+function renderResults(results, query, distanceLimit) {
+  const container = document.getElementById('list');
+  const count = results.length;
+  
+  let header = '📍 ' + count + ' hub' + (count > 1 ? 's' : '') + ' found';
+  if (distanceLimit !== undefined) {
+    const distText = distanceLimit === Infinity ? 'all of the UK' : distanceLimit + ' miles';
+    header += ' within ' + distText + ' of <strong>' + query + '</strong>';
+  } else {
+    header += ' for "<strong>' + query + '</strong>"';
+  }
+  
+  if (count === 0) {
+    container.innerHTML = '<div class="results-header">' + header + '</div><div class="empty">No hubs found. Try a different search.</div>';
+    return;
+  }
+  
+  const grouped = {};
+  results.forEach(hub => {
+    const regionName = hub.region || 'Unknown';
+    if (!grouped[regionName]) grouped[regionName] = [];
+    grouped[regionName].push(hub);
+  });
+  
+  let html = '<div class="results-header">' + header + '</div>';
+  
+  for (const regionName in grouped) {
+    const regionId = 'r-' + regionName.toLowerCase().replace(/\s+/g, '-');
+    html += `<div class="region-section">
+      <div class="region-header" onclick="toggleRegion('${regionId}')">
+        <h2>📍 ${regionName} <span class="stats">[${grouped[regionName].length}]</span></h2>
+        <span class="toggle open" id="t-${regionId}">▼</span>
+      </div>
+      <div class="region-content" id="c-${regionId}">`;
+    
+    const areas = {};
+    grouped[regionName].forEach(hub => {
+      const areaName = hub.area || 'General';
+      if (!areas[areaName]) areas[areaName] = [];
+      areas[areaName].push(hub);
+    });
+    
+    for (const areaName in areas) {
+      html += `<div class="area-section"><div class="area-name">${areaName}</div>`;
+      areas[areaName].forEach(hub => {
+        const distDisplay = hub._distance ? ' <span class="hub-distance">' + hub._distance + ' miles away</span>' : '';
+        html += `<div class="hub-card">
+          <h3>${hub.name}${distDisplay}</h3>
+          <div class="desc">${hub.description || ''}</div>`;
+        
+        if (hub.events && hub.events.length > 0) {
+          html += '<div>' + hub.events.map(e => e ? '<span class="tag event">📅 ' + e + '</span>' : '').join('') + '</div>';
+        }
+        
+        if (hub.links) {
+          const linkMap = {'website':'🌐 Website','discord':'💬 Discord','linkedin':'🔗 LinkedIn','youtube':'📺 YouTube','bluesky':'🦋 Bluesky','eventbrite':'🎟️ Eventbrite','meetup':'📅 Meetup','luma':'✨ Luma','facebook':'📘 Facebook','instagram':'📸 Instagram','tiktok':'🎵 TikTok','x':'🐦 X'};
+          let linksHtml = '';
+          for (const key in linkMap) {
+            if (hub.links[key]) linksHtml += '<a href="' + hub.links[key] + '" target="_blank">' + linkMap[key] + '</a>';
+          }
+          if (linksHtml) html += '<div class="links">' + linksHtml + '</div>';
+        }
+        html += '</div>';
+      });
+      html += '</div>';
+    }
+    html += '</div></div>';
+  }
+  
+  container.innerHTML = html;
+}
+
+// ============================================================
+// CLEAR SEARCH
+// ============================================================
+function clearSearch() {
+  isSearchActive = false;
+  document.getElementById('clearBtn').style.display = 'none';
+  document.getElementById('searchInput').value = '';
+  renderFullList(hubsData.regions);
+  document.querySelectorAll('.toggle').forEach(el => el.classList.add('open'));
+}
+
+// ============================================================
+// TOGGLE REGION
+// ============================================================
+function toggleRegion(id) {
+  const content = document.getElementById('c-' + id);
+  const toggle = document.getElementById('t-' + id);
+  if (content) {
+    content.classList.toggle('hidden');
+    if (toggle) toggle.classList.toggle('open');
+  }
+}
+
+// ============================================================
+// RENDER FULL LIST
+// ============================================================
+function renderFullList(regions) {
+  const container = document.getElementById('list');
+  if (!regions || regions.length === 0) {
+    container.innerHTML = '<div class="empty">No hubs found. <a href="https://github.com/uijaz/uk-game-hubs/issues/new/choose" target="_blank">Add one on GitHub!</a></div>';
+    return;
+  }
+  
+  let html = '';
+  regions.forEach(region => {
+    const id = getRegionId(region);
+    const hubCount = countHubs(region);
+    const hasHubs = hubCount > 0;
+    const addUrl = 'https://github.com/uijaz/uk-game-hubs/issues/new?template=add-hub.yml&labels=enhancement,new-hub&title=[New+Hub]+' + encodeURIComponent(region.name);
+    const updateUrl = 'https://github.com/uijaz/uk-game-hubs/issues/new?template=update-hub.yml&labels=enhancement,update&title=[Update+Hub]';
+    
+    html += `<div class="region-section">
+      <div class="region-header" onclick="toggleRegion('${id}')">
+        <h2>📍 ${region.name} <span class="stats">${hasHubs ? '[' + hubCount + ']' : '(no hubs yet)'}</span></h2>
+        <div style="display:flex;align-items:center;gap:10px">
+          <a href="${addUrl}" target="_blank" class="btn-add-hub" onclick="event.stopPropagation();">➕ Add Hub</a>
+          ${hasHubs ? '<span class="toggle open" id="t-' + id + '">▼</span>' : '<span style="opacity:0.3;">-</span>'}
+        </div>
+      </div>
+      <div class="region-content ${hasHubs ? '' : 'hidden'}" id="c-${id}">`;
+    
+    if (region.areas) {
+      region.areas.forEach(area => {
+        html += `<div class="area-section"><div class="area-name">${area.name}</div>`;
+        area.hubs.forEach(hub => {
+          html += `<div class="hub-card">
+            <div class="hub-actions">
+              <h3>${hub.name}</h3>
+              <a href="${updateUrl + '&title=[Update+Hub]+' + encodeURIComponent(hub.name)}" target="_blank" class="btn-update-hub">✏️ Suggest Update</a>
+            </div>
+            <div class="desc">${hub.description || ''}</div>`;
+          
+          if (hub.events && hub.events.length > 0) {
+            html += '<div>' + hub.events.map(e => e ? '<span class="tag event">📅 ' + e + '</span>' : '').join('') + '</div>';
+          }
+          
+          if (hub.links) {
+            const linkMap = {'website':'🌐 Website','discord':'💬 Discord','linkedin':'🔗 LinkedIn','youtube':'📺 YouTube','bluesky':'🦋 Bluesky','eventbrite':'🎟️ Eventbrite','meetup':'📅 Meetup','luma':'✨ Luma','facebook':'📘 Facebook','instagram':'📸 Instagram','tiktok':'🎵 TikTok','x':'🐦 X'};
+            let linksHtml = '';
+            for (const key in linkMap) {
+              if (hub.links[key]) linksHtml += '<a href="' + hub.links[key] + '" target="_blank">' + linkMap[key] + '</a>';
+            }
+            if (linksHtml) html += '<div class="links">' + linksHtml + '</div>';
+          }
+          html += '</div>';
+        });
+        html += '</div>';
+      });
+    }
+    html += '</div></div>';
+  });
+  
+  container.innerHTML = html;
+}
+
+// ============================================================
+// LOAD DATA
+// ============================================================
+fetch('data/hubs.json')
+  .then(res => res.json())
+  .then(data => {
+    hubsData = data;
+    hubsData.regions.forEach(region => {
       if (region.areas) {
         region.areas.forEach(area => {
-          count += area.hubs ? area.hubs.length : 0;
+          area.hubs.forEach(hub => {
+            allHubs.push({...hub, area: area.name, region: region.name, coordinates: area.coordinates});
+          });
         });
       }
-      return count;
-    }
+    });
+    document.getElementById('count').textContent = '📍 ' + allHubs.length + ' hubs mapped';
+    document.getElementById('lastUpdated').textContent = data.lastUpdated || '2026-08-06';
+    renderFullList(hubsData.regions);
+  })
+  .catch(() => {
+    document.getElementById('list').innerHTML = '<div class="empty">⚠️ Error loading hubs. Try refreshing.</div>';
+  });
 
-    function getRegionId(region) {
-      return region.id || region.name.toLowerCase().replace(/\s+/g, '-');
-    }
+// ============================================================
+// KEYBOARD SHORTCUTS (PC + Mobile Friendly)
+// ============================================================
+document.getElementById('searchInput').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    doSearch();
+  }
+  if (e.key === 'Escape') {
+    this.value = '';
+    clearSearch();
+  }
+});
 
-    function getAreaId(area) {
-      return area.id || area.name.toLowerCase().replace(/\s+/g, '-');
-    }
-
-    function getHubId(hub) {
-      return hub.id || hub.name.toLowerCase().replace(/[^a-z0-9]/g, '-');
-    }
-
-    fetch('data/hubs.json')
-      .then(res => res.json())
-      .then(data => {
-        hubsData = data;
-        // Flatten all hubs for search
-        hubsData.regions.forEach(region => {
-          if (region.areas) {
-            region.areas.forEach(area => {
-              area.hubs.forEach(hub => {
-                allHubs.push({
-                  ...hub,
-                  area: area.name,
-                  areaId: getAreaId(area),
-                  region: region.name,
-                  regionId: getRegionId(region),
-                  coordinates: area.coordinates
-                });
-              });
-            });
-          }
-        });
-        document.getElementById('count').textContent = '📍 ' + allHubs.length + ' hubs mapped across ' + hubsData.regions.length + ' regions';
-        document.getElementById('lastUpdated').textContent = data.lastUpdated;
-        render(hubsData.regions);
-      })
-      .catch(() => {
-        document.getElementById('list').innerHTML = '<div class="empty">⚠️ Error loading hubs. Try refreshing.</div>';
-      });
-
-    function render(regions) {
-      const container = document.getElementById('list');
-      if (!regions || regions.length === 0) {
-        container.innerHTML = '<div class="empty">No hubs match your search. <a href="https://github.com/uijaz/uk-game-hubs/issues/new/choose" target="_blank">Add one on GitHub!</a></div>';
-        return;
-      }
-
-      let html = '';
-      regions.forEach(region => {
-        const regionId = getRegionId(region);
-        const hubCount = countHubsInRegion(region);
-        const hasHubs = hubCount > 0;
-        
-        // GitHub issue URLs
-        const addHubUrl = 'https://github.com/uijaz/uk-game-hubs/issues/new?template=add-hub.yml&labels=enhancement,new-hub&title=[New+Hub]+' + encodeURIComponent(region.name);
-        const updateHubUrl = 'https://github.com/uijaz/uk-game-hubs/issues/new?template=update-hub.yml&labels=enhancement,update&title=[Update+Hub]';
-        
-        html += `
-          <div class="region-section">
-            <div class="region-header" onclick="toggleRegion('${regionId}')">
-              <h2>
-                📍 ${region.name}
-                <span class="region-stats">${hasHubs ? '[' + hubCount + ' hub' + (hubCount > 1 ? 's' : '') + ']' : '(no hubs yet)'}</span>
-              </h2>
-              <div class="region-actions">
-                <a href="${addHubUrl}" target="_blank" class="btn-add-hub" onclick="event.stopPropagation();">➕ Add Hub</a>
-                ${hasHubs ? '<span class="toggle open" id="toggle-' + regionId + '">▼</span>' : '<span style="opacity:0.3;">-</span>'}
-              </div>
-            </div>
-            <div class="region-content ${hasHubs ? '' : 'hidden'}" id="region-${regionId}">
-        `;
-        if (region.areas) {
-          region.areas.forEach(area => {
-            const areaId = getAreaId(area);
-            html += `<div class="area-section">`;
-            html += `<div class="area-name">${area.name}`;
-            if (area.coordinates) {
-              html += ` <span class="coordinates-badge">📍 ${area.coordinates.lat}, ${area.coordinates.lng}</span>`;
-            }
-            html += `</div>`;
-            area.hubs.forEach(hub => {
-              const hubId = getHubId(hub);
-              const updateUrl = updateHubUrl + '&title=[Update+Hub]+' + encodeURIComponent(hub.name);
-              html += `<div class="hub-card">`;
-              html += `<div class="hub-actions">`;
-              html += `<h3>${hub.name}</h3>`;
-              html += `<a href="${updateUrl}" target="_blank" class="btn-update-hub">✏️ Suggest Update</a>`;
-              html += `</div>`;
-              html += `<div class="description">${hub.description || ''}</div>`;
-              
-              // Studios (support both string and object formats)
-              if (hub.studios && hub.studios.length > 0) {
-                html += `<div>`;
-                hub.studios.forEach(s => {
-                  if (typeof s === 'object' && s.name) {
-                    if (s.website) {
-                      html += `<span class="tag studio">🏢 <a href="${s.website}" target="_blank">${s.name}</a></span>`;
-                    } else {
-                      html += `<span class="tag studio">🏢 ${s.name}</span>`;
-                    }
-                  } else if (typeof s === 'string') {
-                    html += `<span class="tag studio">🏢 ${s}</span>`;
-                  }
-                });
-                html += `</div>`;
-              }
-              
-              // Events
-              if (hub.events && hub.events.length > 0) {
-                html += `<div>`;
-                hub.events.forEach(e => {
-                  if (e) {
-                    html += `<span class="tag event">📅 ${e}</span>`;
-                  }
-                });
-                html += `</div>`;
-              }
-              
-              // Links
-              if (hub.links) {
-                const linkMap = {
-                  'website': '🌐 Website',
-                  'discord': '💬 Discord',
-                  'linkedin': '🔗 LinkedIn',
-                  'youtube': '📺 YouTube',
-                  'bluesky': '🦋 Bluesky',
-                  'eventbrite': '🎟️ Eventbrite',
-                  'meetup': '📅 Meetup',
-                  'luma': '✨ Luma',
-                  'facebook': '📘 Facebook',
-                  'instagram': '📸 Instagram',
-                  'tiktok': '🎵 TikTok',
-                  'x': '🐦 X'
-                };
-                let linksHtml = '';
-                for (const key in linkMap) {
-                  if (hub.links[key]) {
-                    linksHtml += `<a href="${hub.links[key]}" target="_blank">${linkMap[key]}</a>`;
-                  }
-                }
-                if (linksHtml) {
-                  html += `<div class="links">${linksHtml}</div>`;
-                }
-              }
-              
-              html += `</div>`;
-            });
-            html += `</div>`;
-          });
-        }
-        html += `</div></div>`;
-      });
-      
-      container.innerHTML = html;
-    }
-
-    function toggleRegion(regionId) {
-      const content = document.getElementById('region-' + regionId);
-      const toggle = document.getElementById('toggle-' + regionId);
-      if (content) {
-        content.classList.toggle('hidden');
-        if (toggle) toggle.classList.toggle('open');
-      }
-    }
-
-    function filter() {
-      const q = document.getElementById('search').value.toLowerCase();
-      if (!q) {
-        render(hubsData.regions);
-        return;
-      }
-      
-      const filteredRegions = [];
-      hubsData.regions.forEach(region => {
-        const matchedAreas = [];
-        if (region.areas) {
-          region.areas.forEach(area => {
-            const matchedHubs = area.hubs.filter(hub => {
-              let studioText = '';
-              if (hub.studios) {
-                hub.studios.forEach(s => {
-                  if (typeof s === 'object' && s.name) {
-                    studioText += ' ' + s.name;
-                  } else if (typeof s === 'string') {
-                    studioText += ' ' + s;
-                  }
-                });
-              }
-              const searchText = (hub.name + ' ' + hub.description + ' ' + area.name + ' ' + region.name + ' ' + studioText + ' ' + (hub.events || []).join(' ')).toLowerCase();
-              return searchText.includes(q);
-            });
-            if (matchedHubs.length > 0) {
-              matchedAreas.push({
-                ...area,
-                hubs: matchedHubs
-              });
-            }
-          });
-        }
-        if (matchedAreas.length > 0) {
-          filteredRegions.push({
-            ...region,
-            areas: matchedAreas
-          });
-        }
-      });
-      
-      render(filteredRegions);
-    }
-  </script>
+// Distance filter change triggers search if there's a query
+document.getElementById('distanceSelect').addEventListener('change', function() {
+  if (document.getElementById('searchInput').value.trim()) {
+    doSearch();
+  }
+});
+</script>
 
 </body>
 </html>
